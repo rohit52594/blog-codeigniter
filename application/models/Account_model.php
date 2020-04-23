@@ -40,7 +40,7 @@ class Account_model extends CI_Model {
 
     }
 
-    public function checkLogin($email, $password) {
+    public function checkLogin($email, $password, $operatingSystem, $browser) {
 
         $this->db->where('email', $email);
 
@@ -55,6 +55,25 @@ class Account_model extends CI_Model {
                 if ($decPassword == $password) {
 
                     if ($key->is_verified == 1) {
+
+                        $loginData = [
+
+                            'user_id' => $key->id,
+
+                            'os' => $operatingSystem,
+
+                            'browser' => $browser,
+
+                            'ip' => $_SERVER['REMOTE_ADDR'],
+
+                            'login_date' => date('Y-m-d'),
+
+                            'login_time' => date('H:i:s')
+
+
+                        ];
+
+                        $this->db->insert('login_history', $loginData);
 
                         $this->session->set_userdata('id', $key->id);
 

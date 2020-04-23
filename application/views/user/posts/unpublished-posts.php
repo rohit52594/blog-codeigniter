@@ -23,9 +23,11 @@
       </tr>
       </thead>
       <tbody>
-      <?php foreach ($UNPUBLISHED_POSTS as $posts) {
+      <?php
 
         $i = 0;
+
+        foreach ($UNPUBLISHED_POSTS as $posts) {
 
         $description = htmlspecialchars($posts->description);
 
