@@ -10,7 +10,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<?php echo base_url().'assets/backend/'; ?>dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo ($this->session->userdata('image') == '') ? base_url() . 'assets/dummy/dummy-dp.png' : base_url() . 'assets/user-images/' . $this->session->userdata('image'); ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a style = "cursor: pointer;" class="d-block">Welcome, <?php echo $this->session->userdata('name'); ?></a>
@@ -79,15 +79,15 @@
               <li class="nav-item">
                 <a href="<?php echo site_url('profile/view'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>View Profile</p>
+                  <p>My Profile</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="<?php echo site_url('profile/update'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Update profile</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
 

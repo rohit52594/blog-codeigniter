@@ -8,7 +8,23 @@ class Account_model extends CI_Model {
 
         $this->db->insert('users', $data);
 
-        return $this->db->insert_id();
+        $insertId = $this->db->insert_id();
+
+        $dataDetails = [
+
+            'user_id' => $insertId,
+
+            'last_updated_date' => date('Y-m-d'),
+
+            'last_updated_time' => date('H:i:s'),
+
+            'last_updated_remote' => $_SERVER['REMOTE_ADDR']
+
+        ];
+
+        $this->db->insert('user_details', $dataDetails);
+
+        return $insertId;
 
     }
 
@@ -75,7 +91,19 @@ class Account_model extends CI_Model {
 
                         $this->db->insert('login_history', $loginData);
 
+                        $this->load->model('Profile_model');
+
+                        $userDetails = $this->Profile_model->getUserDetails();
+
+                        foreach ($userDetails as $userDetailsKey) {
+
+                            $this->session->set_userdata('image', $userDetailsKey->profile_image);
+
+                        }
+
                         $this->session->set_userdata('id', $key->id);
+
+                        $this->session->set_userdata('email', $key->email);
 
                         $this->session->set_userdata('name', $key->name);
 
